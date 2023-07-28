@@ -1,14 +1,13 @@
-import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
 import Section from "./Section";
 import ContactForm from './ContactForm';
 import FilterInput from './FilterInput/FilterInput';
 import ContactsList from './ContactsList/ContactsList';
-import {
-  // loadLocalStorage,
-  saveLocalStorage
-} from 'utils/localStorage';
+// import {
+//   loadLocalStorage,
+//   saveLocalStorage
+//} from 'utils/localStorage';
 import { useDispatch, useSelector } from 'react-redux';
 import { delContacts, seFilter, setContacts } from 'redux/contactsReducer';
 
@@ -53,9 +52,9 @@ export default function App() {
     );
   };
 
-  useEffect(() => {
-    saveLocalStorage(contacts);
-  }, [contacts])
+  // useEffect(() => {
+  //   saveLocalStorage(contacts);
+  // }, [contacts])
 
   //================================================================
 
