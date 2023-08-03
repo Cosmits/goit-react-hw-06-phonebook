@@ -1,12 +1,19 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 
 import { Button, Form, Label, InputForm } from './ContactForm.styled';
+import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+import { setContactSlice } from 'redux/contactsSlice';
 
-export default function ContactForm ({ addContact }) {
+export default function ContactForm () {
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const dispatch = useDispatch();
+
+  const { contacts } = useSelector(getContacts);
 
   const handleChangeName = event => {
     setName(event.currentTarget.value);
@@ -15,6 +22,16 @@ export default function ContactForm ({ addContact }) {
   const handleChangeNumber = event => {
     setNumber(event.currentTarget.value);
   };
+
+
+  const addContact = data => {
+    const newContact = { ...data, id: nanoid(), };
+
+    contacts.some(({ name }) => name === data.name)
+      ? alert(`${data.name} is duplicate contact`)
+      : dispatch(setContactSlice(newContact))
+  };
+
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -55,8 +72,4 @@ export default function ContactForm ({ addContact }) {
       <Button type="submit">Add contact</Button>
     </Form>
   );
-}
-
-ContactForm.propTypes = {
-  addContact: PropTypes.func,
 }
